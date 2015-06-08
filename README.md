@@ -3,6 +3,7 @@
 Hours Taken: 10 hours
 
 [Demo]
+![](https://www.dropbox.com/s/nsv5lvb4j0swtpz/Week4_Tumblr_June.gif?dl=0)
 
 
 [Features Completed]
