@@ -1,0 +1,98 @@
+//
+//  PhotoViewController.swift
+//  Week5_Tinder
+//
+//  Created by June Lim on 6/7/15.
+//  Copyright (c) 2015 June Lim. All rights reserved.
+//
+
+import UIKit
+
+class PhotoViewController: UIViewController {
+
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var clearView: UIView!
+    @IBOutlet weak var doneView: UIImageView!
+    
+    var image: UIImage!
+    var originImageView: CGPoint!
+    var sourceOrigin: CGPoint!
+    var sourceSize: CGRect!
+    var imageViewSize: CGRect!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        scrollView.contentSize = CGSize(width: 1600, height: 568)
+        imageView.image = image
+        originImageView = imageView.center
+        imageViewSize = imageView.frame
+        
+        // Do any additional setup after loading the view.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func onDoneTap(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+
+    
+    @IBAction func onPan(sender: UIPanGestureRecognizer) {
+        
+    }
+    
+    @IBAction func onClearPan(sender: UIPanGestureRecognizer) {
+        
+        var translation = sender.translationInView(view)
+        
+        if sender.state == UIGestureRecognizerState.Began {
+            
+        } else if sender.state == UIGestureRecognizerState.Changed {
+            
+            doneView.alpha = 1 - (translation.y/50)
+            imageView.center.y = originImageView.y + translation.y
+            scrollView.backgroundColor = UIColor(white: 0, alpha: 1 - (translation.y/50))
+            self.view.alpha = 1 - (translation.y/500)
+            
+        } else if sender.state == UIGestureRecognizerState.Ended {
+            if translation.y > 50 {
+                    UIView.animateWithDuration(0.6, animations: { () -> Void in
+                        self.imageView.center = self.sourceOrigin
+                        self.imageView.frame = self.sourceSize
+                    })
+                    UIView.animateWithDuration(0.8, delay: 3.0, options: nil, animations: { () -> Void in
+                        self.dismissViewControllerAnimated(true, completion: nil)
+                    }, completion: nil)
+                
+
+            } else {
+                UIView.animateWithDuration(0.6, animations: { () -> Void in
+                    self.doneView.alpha = 1
+                    self.imageView.center.y = self.originImageView.y
+                    self.scrollView.backgroundColor = UIColor(white: 0, alpha: 1)
+                    self.view.alpha = 1
+                })
+                
+            }
+        }
+        
+        
+    }
+    
+    
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}
