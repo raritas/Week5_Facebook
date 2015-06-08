@@ -1,0 +1,43 @@
+//
+//  FadeTransition.swift
+//  transitionDemo
+//
+//  Created by Timothy Lee on 11/4/14.
+//  Copyright (c) 2014 Timothy Lee. All rights reserved.
+//
+
+import UIKit
+
+class FadeTransition: BaseTransition {
+    
+    override func presentTransition(containerView: UIView, fromViewController: UIViewController, toViewController: UIViewController) {
+        
+        var cardsViewController = fromViewController as! CardsViewController
+        var photoViewController = toViewController as! PhotoViewController
+        
+        toViewController.view.alpha = 0
+        photoViewController.scrollView.alpha = 0
+        photoViewController.imageView.center = cardsViewController.pictureOneView.center
+        photoViewController.imageView.frame = cardsViewController.sizePicOneView
+        
+        UIView.animateWithDuration(0.8, animations: {
+            toViewController.view.alpha = 1
+            photoViewController.scrollView.alpha = 1
+            photoViewController.imageView.center = photoViewController.originImageView
+            photoViewController.imageView.frame = photoViewController.imageViewSize
+            
+        }) { (finished: Bool) -> Void in
+            self.finish()
+        }
+    }
+    
+    override func dismissTransition(containerView: UIView, fromViewController: UIViewController, toViewController: UIViewController) {
+        
+        fromViewController.view.alpha = 1
+        UIView.animateWithDuration(0.8, animations: {
+            fromViewController.view.alpha = 0
+        }) { (finished: Bool) -> Void in
+            self.finish()
+        }
+    }
+}
