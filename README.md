@@ -3,8 +3,8 @@
 Hours Taken: 10 hours
 
 [Demo]
-![](https://www.dropbox.com/s/nsv5lvb4j0swtpz/Week4_Tumblr_June.gif?dl=0)
-
+![](https://www.dropbox.com/s/nsv5lvb4j0swtpz/Week4_Tumblr_June.gif)
+https://www.dropbox.com/s/bzru8dvfchgrzv9/Week5_Facebook_June_v2.gif?dl=0
 
 [Features Completed]
 - Tapping on a photo in the news feed should expand the photo full screen.
