@@ -1,0 +1,68 @@
+//
+//  CardsViewController.swift
+//  Week5_Tinder
+//
+//  Created by June Lim on 6/6/15.
+//  Copyright (c) 2015 June Lim. All rights reserved.
+//
+
+import UIKit
+
+class CardsViewController: UIViewController {
+
+    var selectedImageView: UIImageView!
+    var imageTransition: FadeTransition!
+    var originPicOneView: CGPoint!
+    var sizePicOneView: CGRect!
+    
+    @IBOutlet weak var pictureOneView: UIImageView!
+    @IBOutlet weak var scrollView: UIScrollView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        originPicOneView = pictureOneView.center
+        sizePicOneView = pictureOneView.frame
+
+        
+        println("\(sizePicOneView)")
+        // Do any additional setup after loading the view.
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        
+      scrollView.contentSize = CGSize(width: 320, height: 2520)
+    }
+    
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func onTap(sender: UITapGestureRecognizer) {
+        
+        selectedImageView = sender.view as! UIImageView
+        performSegueWithIdentifier("showPicture", sender: nil)
+    }
+
+    
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        var photoViewController = segue.destinationViewController as! PhotoViewController
+        photoViewController.image = selectedImageView.image
+        photoViewController.sourceOrigin = originPicOneView
+        photoViewController.sourceSize = sizePicOneView
+        
+        imageTransition = FadeTransition()
+        photoViewController.modalPresentationStyle = UIModalPresentationStyle.Custom
+        photoViewController.transitioningDelegate = imageTransition
+        
+        
+    }
+    
+
+}
